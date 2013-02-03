@@ -5,7 +5,6 @@
 package readline
 
 import (
-	"io"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -53,16 +52,18 @@ func TestReadLine(t *testing.T) {
 	out := InitOutput(t)
 	defer CleanOutput(t, out)
 
-	line, err := ReadLine("> ")
-	checkNoError(t, err, "error while reading first line: %s")
-	if line != input {
-		t.Error("%q expected (got %q)", input, line)
+	line, eof := ReadLine("> ")
+	if eof {
+		t.Error("unexpected EOF")
 	}
-	line, err = ReadLine("> ")
+	if line != input {
+		t.Errorf("%q expected (got %q)", input, line)
+	}
+	line, eof = ReadLine("> ")
 	if len(line) != 0 {
 		t.Errorf("EOF expected (got %q)", line)
 	}
-	if err != io.EOF {
-		t.Errorf("EOF expected (got %v)", err)
+	if !eof {
+		t.Error("EOF expected")
 	}
 }

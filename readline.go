@@ -15,17 +15,16 @@ package readline
 import "C"
 
 import (
-	"io"
 	"os"
 	"syscall"
 	"unsafe"
 )
 
 // ReadLine prints a prompt and then reads and returns a single line of text from the user.
-// If ReadLine encounters an EOF while reading the line, and the line is empty at that point, then an io.EOF error is returned.
+// If ReadLine encounters an EOF while reading the line, and the line is empty at that point, then true is returned.
 // Otherwise, the line is ended just as if a newline had been typed.
 // (See readline http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX190)
-func ReadLine(prompt string) (string, error) {
+func ReadLine(prompt string) (string, bool) {
 	var cprompt *C.char
 	if len(prompt) != 0 {
 		cprompt = C.CString(prompt)
@@ -35,11 +34,11 @@ func ReadLine(prompt string) (string, error) {
 		C.free(unsafe.Pointer(cprompt))
 	}
 	if cline == nil {
-		return "", io.EOF
+		return "", true
 	}
 	line := C.GoString(cline)
 	C.free(unsafe.Pointer(cline))
-	return line, nil
+	return line, false
 }
 
 // Buffer returns the line gathered so far.

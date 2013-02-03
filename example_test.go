@@ -6,7 +6,6 @@ package readline_test
 
 import (
 	"github.com/gwenn/goreadline"
-	"io"
 	"os/user"
 	"path"
 )
@@ -26,12 +25,11 @@ func Example() {
 	_, err = readline.ReadHistory(history)
 	check(err)
 	for {
-		line, err := readline.ReadLine("> ")
-		if err == io.EOF {
+		line, eof := readline.ReadLine("> ")
+		if eof {
 			println()
 			break
 		}
-		check(err)
 
 		// ...
 
@@ -52,12 +50,11 @@ func ExampleSetCompletionEntryFunction() {
 		return ""
 	})
 	for {
-		line, err := readline.ReadLine("> ")
-		if err == io.EOF {
+		line, eof := readline.ReadLine("> ")
+		if eof {
 			println()
 			break
 		}
-		check(err)
 
 		// ...
 		println(line)
