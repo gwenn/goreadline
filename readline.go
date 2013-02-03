@@ -21,11 +21,11 @@ import (
 	"unsafe"
 )
 
-// Readline prints a prompt and then reads and returns a single line of text from the user.
-// If Readline encounters an EOF while reading the line, and the line is empty at that point, then an io.EOF error is returned.
+// ReadLine prints a prompt and then reads and returns a single line of text from the user.
+// If ReadLine encounters an EOF while reading the line, and the line is empty at that point, then an io.EOF error is returned.
 // Otherwise, the line is ended just as if a newline had been typed.
 // (See readline http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX190)
-func Readline(prompt string) (string, error) {
+func ReadLine(prompt string) (string, error) {
 	var cprompt *C.char
 	if len(prompt) != 0 {
 		cprompt = C.CString(prompt)

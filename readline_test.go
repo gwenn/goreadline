@@ -43,7 +43,7 @@ func CleanOutput(t *testing.T, output *os.File) {
 	checkNoError(t, output.Close(), "error while closing output file: %s")
 }
 
-func TestReadline(t *testing.T) {
+func TestReadLine(t *testing.T) {
 	input := "Hello, world!"
 	in := InitInput(t, input)
 	defer CleanInput(t, in)
@@ -53,12 +53,12 @@ func TestReadline(t *testing.T) {
 	out := InitOutput(t)
 	defer CleanOutput(t, out)
 
-	line, err := Readline("> ")
+	line, err := ReadLine("> ")
 	checkNoError(t, err, "error while reading first line: %s")
 	if line != input {
 		t.Error("%q expected (got %q)", input, line)
 	}
-	line, err = Readline("> ")
+	line, err = ReadLine("> ")
 	if len(line) != 0 {
 		t.Errorf("EOF expected (got %q)", line)
 	}

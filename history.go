@@ -85,6 +85,7 @@ func WriteHistory(filename string) error {
 
 // AppendHistory appends the last nelements of the history list to filename.
 // If filename is "", then append to `~/.history'.
+// FIXME seems to be unsupported by editline library.
 // (See append_history http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX30)
 func AppendHistory(nelements int, filename string) error {
 	if HistoryLength() == 0 {

@@ -26,7 +26,7 @@ func Example() {
 	_, err = readline.ReadHistory(history)
 	check(err)
 	for {
-		line, err := readline.Readline("> ")
+		line, err := readline.ReadLine("> ")
 		if err == io.EOF {
 			println()
 			break
@@ -37,6 +37,7 @@ func Example() {
 
 		readline.AddHistory(line)
 	}
+	// TODO save history in a deferred block?
 	readline.StifleHistory(100) // to limit disk usage
 	err = readline.WriteHistory(history)
 	// err = readline.AppendHistory(100, history) // for multi-sessions handling
@@ -51,7 +52,7 @@ func ExampleSetCompletionEntryFunction() {
 		return ""
 	})
 	for {
-		line, err := readline.Readline("> ")
+		line, err := readline.ReadLine("> ")
 		if err == io.EOF {
 			println()
 			break
