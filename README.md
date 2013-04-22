@@ -13,10 +13,10 @@ GetHistory supports negative index to ease browsing the last history entries.
 
 ### Readline documentation:
 
-http://cnswww.cns.cwru.edu/php/chet/readline/readline.html
+http://cnswww.cns.cwru.edu/php/chet/readline/readline.html  
 http://cnswww.cns.cwru.edu/php/chet/readline/history.html
 
-http://www.thrysoee.dk/editline/
+http://www.thrysoee.dk/editline/  
 http://www.cs.utah.edu/~bigler/code/libedit.html
 
 ### Similar projects:
