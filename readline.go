@@ -2,15 +2,17 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package readline provides access to the readline C library.
+// Package readline provides access to the editline/readline C library.
 package readline
 
 /*
-#cgo LDFLAGS: -lreadline -lhistory
+//#cgo LDFLAGS: -lreadline -lhistory
+#cgo LDFLAGS: -ledit
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <readline/readline.h>
+//#include <readline/readline.h>
+#include <editline/readline.h>
 */
 import "C"
 
@@ -19,6 +21,13 @@ import (
 	"syscall"
 	"unsafe"
 )
+
+func init() {
+	// Program received signal SIGSEGV, Segmentation fault.
+	// rl_sigwinch_handler (sig=-136463680) at /tmp/buildd/readline6-6.2+dfsg/signals.c:267
+	// 267	  RL_UNSETSTATE(RL_STATE_SIGHANDLER);
+	//C.rl_catch_sigwinch = 0
+}
 
 // ReadLine prints a prompt and then reads and returns a single line of text from the user.
 // If ReadLine encounters an EOF while reading the line, and the line is empty at that point, then true is returned.

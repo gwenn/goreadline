@@ -6,13 +6,14 @@ package readline
 
 /*
 #include <stdlib.h>
-#include <readline/history.h>
+//#include <readline/history.h>
+#include <editline/history.h>
 */
 import "C"
 
 import (
 	"fmt"
-	"os"
+	//	"os"
 	"strings"
 	"syscall"
 	"unicode"
@@ -85,8 +86,8 @@ func WriteHistory(filename string) error {
 
 // AppendHistory appends the last nelements of the history list to filename.
 // If filename is "", then append to `~/.history'.
-// FIXME seems to be unsupported by editline library.
 // (See append_history http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX30)
+/* not supported by editline
 func AppendHistory(nelements int, filename string) error {
 	if HistoryLength() == 0 {
 		return nil
@@ -116,10 +117,12 @@ func AppendHistory(nelements int, filename string) error {
 	}
 	return nil
 }
+*/
 
 // TruncateHistoryFile truncates the history file filename, leaving only the last nlines lines.
 // If filename is "", then `~/.history' is truncated.
 // (See history_truncate_file http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX31)
+/* Not supported by editline
 func TruncateHistoryFile(filename string, nlines int) error {
 	var cfilename *C.char
 	if len(filename) != 0 {
@@ -134,6 +137,7 @@ func TruncateHistoryFile(filename string, nlines int) error {
 	}
 	return nil
 }
+*/
 
 // ClearHistory clears the history list by deleting all the entries.
 // (See clear_history http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX10)

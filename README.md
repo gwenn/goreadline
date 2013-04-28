@@ -23,6 +23,7 @@ http://www.cs.utah.edu/~bigler/code/libedit.html
 
 https://github.com/bobappleyard/readline  
 https://github.com/sbinet/go-readline  
+https://github.com/shavac/readline  
 
 http://code.google.com/p/go.crypto/ssh/terminal (semi official)  
 \- https://github.com/sbinet/go-terminal (go.crypto/ssh/terminal forked)  
