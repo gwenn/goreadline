@@ -6,8 +6,8 @@
 package readline
 
 /*
-//#cgo LDFLAGS: -lreadline -lhistory
-#cgo LDFLAGS: -ledit
+#cgo readline LDFLAGS: -lreadline -lhistory
+#cgo !readline LDFLAGS: -ledit
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,13 +21,6 @@ import (
 	"syscall"
 	"unsafe"
 )
-
-func init() {
-	// Program received signal SIGSEGV, Segmentation fault.
-	// rl_sigwinch_handler (sig=-136463680) at /tmp/buildd/readline6-6.2+dfsg/signals.c:267
-	// 267	  RL_UNSETSTATE(RL_STATE_SIGHANDLER);
-	//C.rl_catch_sigwinch = 0
-}
 
 // ReadLine prints a prompt and then reads and returns a single line of text from the user.
 // If ReadLine encounters an EOF while reading the line, and the line is empty at that point, then true is returned.
