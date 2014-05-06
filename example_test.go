@@ -5,9 +5,10 @@
 package readline_test
 
 import (
-	"github.com/gwenn/goreadline"
 	"os/user"
 	"path"
+
+	"github.com/gwenn/goreadline"
 )
 
 func check(err error) {
@@ -44,6 +45,7 @@ func Example() {
 
 func ExampleSetCompletionEntryFunction() {
 	readline.SetCompletionEntryFunction(func(text string, state int) string {
+		// See Buffer() and Point() if you need them to make suggestions.
 		if state == 0 {
 			return text + "s"
 		}
