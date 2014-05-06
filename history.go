@@ -7,7 +7,7 @@ package readline
 /*
 #include <stdlib.h>
 //#include <readline/history.h>
-#include <editline/history.h>
+#include <editline/readline.h>
 */
 import "C"
 
@@ -70,6 +70,9 @@ func ReadHistory(filename string) (bool, error) {
 // If filename is "", then write the history list to `~/.history'.
 // (See write_history http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX29)
 func WriteHistory(filename string) error {
+	if HistoryLength() <= 0 {
+		return nil
+	}
 	var cfilename *C.char
 	if len(filename) != 0 {
 		cfilename = C.CString(filename)
