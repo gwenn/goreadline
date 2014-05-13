@@ -125,7 +125,6 @@ func AppendHistory(nelements int, filename string) error {
 // TruncateHistoryFile truncates the history file filename, leaving only the last nlines lines.
 // If filename is "", then `~/.history' is truncated.
 // (See history_truncate_file http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX31)
-/* Not supported by editline
 func TruncateHistoryFile(filename string, nlines int) error {
 	var cfilename *C.char
 	if len(filename) != 0 {
@@ -140,7 +139,6 @@ func TruncateHistoryFile(filename string, nlines int) error {
 	}
 	return nil
 }
-*/
 
 // ClearHistory clears the history list by deleting all the entries.
 // (See clear_history http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX10)
