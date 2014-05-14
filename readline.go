@@ -51,8 +51,8 @@ func Buffer() string {
 
 // Point returns the offset of the current cursor position in Buffer (the point).
 // (See rl_point http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX192)
-func Point() int {
-	return int(C.rl_point)
+func Point() int32 {
+	return int32(C.rl_point)
 }
 
 // SetInput changes the default input stream (stdin by default)

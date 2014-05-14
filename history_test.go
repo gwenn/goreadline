@@ -72,7 +72,7 @@ func TestStifleHistory(t *testing.T) {
 	assert(t, "history must not be stifled now", !IsHistoryStifled())
 }
 
-func assertHistoryLength(t *testing.T, expected int) {
+func assertHistoryLength(t *testing.T, expected int32) {
 	actual := HistoryLength()
 	if expected != actual {
 		t.Errorf("expecting %d line(s) in history but found %d", expected, actual)

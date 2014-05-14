@@ -31,7 +31,7 @@ import (
 
 //export goCompletionEntryFunction
 func goCompletionEntryFunction(text *C.char, state C.int) *C.char {
-	match := completionEntryFunction(C.GoString(text), int(state))
+	match := completionEntryFunction(C.GoString(text), int32(state))
 	if match == "" {
 		return nil
 	}
@@ -47,7 +47,7 @@ func goCompletionEntryFunction(text *C.char, state C.int) *C.char {
 // Usually the generator function computes the list of possible completions when state is zero,
 // and returns them one at a time on subsequent calls.
 // The generator function returns an empty string to the caller when there are no more possibilities left.
-type CompletionEntryFunction func(text string, state int) string
+type CompletionEntryFunction func(text string, state int32) string
 
 var completionEntryFunction CompletionEntryFunction
 

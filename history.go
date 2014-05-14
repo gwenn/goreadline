@@ -125,7 +125,7 @@ func AppendHistory(nelements int, filename string) error {
 // TruncateHistoryFile truncates the history file filename, leaving only the last nlines lines.
 // If filename is "", then `~/.history' is truncated.
 // (See history_truncate_file http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX31)
-func TruncateHistoryFile(filename string, nlines int) error {
+func TruncateHistoryFile(filename string, nlines int32) error {
 	var cfilename *C.char
 	if len(filename) != 0 {
 		cfilename = C.CString(filename)
@@ -148,7 +148,7 @@ func ClearHistory() {
 
 // StifleHistory cuts off the history list, remembering only the last max entries.
 // (See stifle_history http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX11)
-func StifleHistory(max int) {
+func StifleHistory(max int32) {
 	C.stifle_history(C.int(max))
 }
 
@@ -156,8 +156,8 @@ func StifleHistory(max int) {
 // This returns the previously-set maximum number of history entries (as set by StifleHistory()).
 // The value is positive if the history was stifled, negative if it wasn't.
 // (See unstifle_history http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX12)
-func UnstifleHistory() int {
-	return int(C.unstifle_history())
+func UnstifleHistory() int32 {
+	return int32(C.unstifle_history())
 }
 
 // IsHistoryStifled says if the history is stifled.
@@ -168,14 +168,14 @@ func IsHistoryStifled() bool {
 
 // HistoryLength returns the number of entries currently stored in the history list.
 // (See history_length http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX37)
-func HistoryLength() int {
-	return int(C.history_length)
+func HistoryLength() int32 {
+	return int32(C.history_length)
 }
 
 // HistoryBase returns the logical offset of the first entry in the history list.
 // (See history_base http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX36)
-func HistoryBase() int {
-	return int(C.history_base)
+func HistoryBase() int32 {
+	return int32(C.history_base)
 }
 
 /*
@@ -190,7 +190,7 @@ func HistoryList(offset int) string {
 // GetHistory returns the history entry at position index, starting from 0.
 // If there is no entry there, or if index is greater than the history length, return an error.
 // (See history_get http://cnswww.cns.cwru.edu/php/chet/readline/history.html#IDX17)
-func GetHistory(index int) (string, error) {
+func GetHistory(index int32) (string, error) {
 	length := HistoryLength()
 	if index < 0 {
 		index += length
