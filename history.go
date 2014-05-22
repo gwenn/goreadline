@@ -196,12 +196,12 @@ func GetHistory(index int32) (string, error) {
 		index += length
 	}
 	if index < 0 || index >= length {
-		return "", fmt.Errorf("invalid index", index)
+		return "", fmt.Errorf("invalid index %d", index)
 	}
 	index += HistoryBase() // TODO
 	entry := C.history_get(C.int(index))
 	if entry == nil {
-		return "", fmt.Errorf("invalid index", index)
+		return "", fmt.Errorf("invalid index %d", index)
 	}
 	return C.GoString(entry.line), nil
 }
