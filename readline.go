@@ -55,15 +55,15 @@ func Point() int32 {
 	return int32(C.rl_point)
 }
 
-// SetInput changes the default input stream (stdin by default)
+// setInput changes the default input stream (stdin by default)
 // (See rl_instream http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX209)
-func SetInput(in *os.File) error {
+func setInput(in *os.File) error {
 	return setStream(in, &C.rl_instream, "r", syscall.Stdin)
 }
 
-// SetOutput changes the default output stream (stdout by default)
+// setOutput changes the default output stream (stdout by default)
 // (See rl_outstream http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX210)
-func SetOutput(out *os.File) error {
+func setOutput(out *os.File) error {
 	return setStream(out, &C.rl_outstream, "w", syscall.Stdout)
 }
 
@@ -89,4 +89,36 @@ func setStream(f *os.File, cstream **C.FILE, mode string, def int) error {
 	}
 	*cstream = cf
 	return nil
+}
+
+// Initialize or re-initialize Readline's internal state. It's not strictly necessary to call this; Readline() calls it before reading any input.
+// (See rl_initialize http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX316)
+func Initialize() error {
+	err := C.rl_initialize()
+	if err != 0 {
+		return syscall.Errno(err)
+	}
+	return nil
+}
+
+// LibraryVersion returns the version number of this revision of the library.
+// (See rl_library_version http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX214)
+func LibraryVersion() string {
+	return C.GoString(C.rl_library_version)
+}
+
+// Name is set to a unique name by each application using Readline. The value allows conditional parsing of the inputrc file.
+// (See rl_readline_name http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX218)
+func Name() string {
+	return C.GoString(C.rl_readline_name)
+}
+
+// SetName set to a unique name by each application using Readline. The value allows conditional parsing of the inputrc file.
+// (See rl_readline_name http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX218)
+func SetName(s string) {
+	cs := C.CString(s)
+	if Name() != "" {
+		C.free(unsafe.Pointer(C.rl_readline_name))
+	}
+	C.rl_readline_name = cs
 }

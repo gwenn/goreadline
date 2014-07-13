@@ -51,6 +51,8 @@ type CompletionEntryFunction func(text string, state int32) string
 
 var completionEntryFunction CompletionEntryFunction
 
+// SetCompletionEntryFunction registers the specified generator function.
+// (See rl_attempted_completion_function http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX361)
 func SetCompletionEntryFunction(f CompletionEntryFunction) {
 	if f == nil {
 		if completionEntryFunction != nil {

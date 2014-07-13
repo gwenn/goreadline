@@ -5,14 +5,21 @@
 package readline
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
+	"runtime"
+	"strings"
 	"testing"
+
+	"github.com/bmizerany/assert"
 )
 
 func checkNoError(t *testing.T, err error, format string) {
 	if err != nil {
-		t.Fatalf(format, err)
+		_, file, line, _ := runtime.Caller(1)
+		t.Fatalf("\n%s:%d: %s", path.Base(file), line, fmt.Sprintf(format, err))
 	}
 }
 
@@ -34,7 +41,7 @@ func CleanInput(t *testing.T, input *os.File) {
 func InitOutput(t *testing.T) *os.File {
 	out, err := os.Open("/dev/null")
 	checkNoError(t, err, "error while opening /dev/null file: %s")
-	err = SetOutput(out)
+	err = setOutput(out)
 	checkNoError(t, err, "error while setting output to /dev/null file: %s")
 	return out
 }
@@ -46,11 +53,19 @@ func TestReadLine(t *testing.T) {
 	input := "Hello, world!"
 	in := InitInput(t, input)
 	defer CleanInput(t, in)
-	err := SetInput(in)
+	err := setInput(in)
 	checkNoError(t, err, "error while setting input to temp file: %s")
 
 	out := InitOutput(t)
 	defer CleanOutput(t, out)
+
+	// need by editline
+	lib := LibraryVersion()
+	println("LibraryVersion:", LibraryVersion())
+	if strings.HasPrefix(lib, "EditLine") {
+		err = Initialize()
+		checkNoError(t, err, "error while initializing: %s")
+	}
 
 	line, eof := ReadLine("> ")
 	if eof {
@@ -66,4 +81,10 @@ func TestReadLine(t *testing.T) {
 	if !eof {
 		t.Error("EOF expected")
 	}
+}
+
+func TestName(t *testing.T) {
+	assert.Equal(t, "", Name())
+	SetName("goreadline")
+	assert.Equal(t, "goreadline", Name())
 }

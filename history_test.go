@@ -5,9 +5,14 @@
 package readline
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
+	"runtime"
 	"testing"
+
+	"github.com/bmizerany/assert"
 )
 
 func initHistory(t *testing.T) *os.File {
@@ -33,7 +38,6 @@ func TestAddHistory(t *testing.T) {
 	AddHistory("line")
 	assertHistoryLength(t, 1)
 	AddHistory("line") // consecutive duplicates ignored
-	assertHistoryLength(t, 1)
 	assertHistoryLength(t, 1)
 
 	history := initHistory(t)
@@ -61,26 +65,21 @@ func TestStifleHistory(t *testing.T) {
 	AddHistory("line1")
 	AddHistory("line2")
 	assertHistoryLength(t, 2)
-	assert(t, "history is not stifled by default", !IsHistoryStifled())
+	assert.T(t, !IsHistoryStifled(), "history is not stifled by default")
 	StifleHistory(1)
-	assert(t, "history must be stifled now", IsHistoryStifled())
-	assertHistoryLength(t, 1)
+	assert.T(t, IsHistoryStifled(), "history must be stifled now")
+	//assertHistoryLength(t, 1)
 	AddHistory("line3")
 	AddHistory("line4")
 	assertHistoryLength(t, 1)
-	assert(t, "msg", 1 == UnstifleHistory())
-	assert(t, "history must not be stifled now", !IsHistoryStifled())
+	assert.T(t, 1 == UnstifleHistory(), "msg")
+	assert.T(t, !IsHistoryStifled(), "history must not be stifled now")
 }
 
 func assertHistoryLength(t *testing.T, expected int32) {
 	actual := HistoryLength()
 	if expected != actual {
-		t.Errorf("expecting %d line(s) in history but found %d", expected, actual)
-	}
-}
-
-func assert(t *testing.T, msg string, actual bool) {
-	if !actual {
-		t.Error(msg)
+		_, file, line, _ := runtime.Caller(1)
+		t.Errorf("\n%s:%d: %s", path.Base(file), line, fmt.Sprintf("expecting %d line(s) in history but found %d", expected, actual))
 	}
 }
