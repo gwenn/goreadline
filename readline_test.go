@@ -61,6 +61,7 @@ func TestReadLine(t *testing.T) {
 
 	// need by editline
 	lib := LibraryVersion()
+	fmt.Printf("Version: %x\n", Version())
 	println("LibraryVersion:", LibraryVersion())
 	if strings.HasPrefix(lib, "EditLine") {
 		err = Initialize()

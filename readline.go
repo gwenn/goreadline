@@ -108,6 +108,12 @@ func LibraryVersion() string {
 	return C.GoString(C.rl_library_version)
 }
 
+// Version returns an integer encoding the current version of the library.
+// (See rl_readline_version http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX214)
+func Version() int32 {
+	return int32(C.rl_readline_version)
+}
+
 // Name is set to a unique name by each application using Readline. The value allows conditional parsing of the inputrc file.
 // (See rl_readline_name http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX218)
 func Name() string {
