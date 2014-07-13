@@ -89,3 +89,14 @@ func TestName(t *testing.T) {
 	SetName("goreadline")
 	assert.Equal(t, "goreadline", Name())
 }
+
+func TestReadInitFile(t *testing.T) {
+	err := ReadInitFile("goreadline.rc")
+	//println(err.Error())
+	assert.T(t, err != nil)
+}
+
+func TestParseAndBind(t *testing.T) {
+	err := ParseAndBind(`bind \\t rl_complete`)
+	checkNoError(t, err, "error while parsing/binding: %s")
+}

@@ -129,3 +129,27 @@ func SetName(name string) {
 	}*/
 	C.rl_readline_name = cname
 }
+
+// ReadInitFile reads keybindings and variable assignments from filename
+// (See rl_read_init_file http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX267)
+func ReadInitFile(filename string) error {
+	cfilename := C.CString(filename)
+	err := C.rl_read_init_file(cfilename)
+	C.free(unsafe.Pointer(cfilename))
+	if err != 0 {
+		return syscall.Errno(err)
+	}
+	return nil
+}
+
+// ParseAndBind parses line as if it had been read from the inputrc file and performs any key bindings and variable assignments found
+// (See rl_parse_and_bind http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX266)
+func ParseAndBind(line string) error {
+	cline := C.CString(line)
+	err := C.rl_parse_and_bind(cline)
+	C.free(unsafe.Pointer(cline))
+	if err != 0 {
+		return syscall.Errno(err)
+	}
+	return nil
+}
