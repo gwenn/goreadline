@@ -84,7 +84,7 @@ func TestReadLine(t *testing.T) {
 }
 
 func TestName(t *testing.T) {
-	assert.Equal(t, "", Name())
+	assert.T(t, "" == Name() || "other" == Name())
 	SetName("goreadline")
 	assert.Equal(t, "goreadline", Name())
 }

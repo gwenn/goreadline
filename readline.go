@@ -117,8 +117,8 @@ func Name() string {
 // (See rl_readline_name http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX218)
 func SetName(s string) {
 	cs := C.CString(s)
-	if Name() != "" {
+	/*if Name() != "" {
 		C.free(unsafe.Pointer(C.rl_readline_name))
-	}
+	}*/
 	C.rl_readline_name = cs
 }
