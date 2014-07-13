@@ -45,14 +45,15 @@ func ReadLine(prompt string) (string, bool) {
 
 // Buffer returns the line gathered so far.
 // (See rl_line_buffer http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX192)
+// TODO Validate String versus []byte
 func Buffer() string {
 	return C.GoString(C.rl_line_buffer)
 }
 
 // Point returns the offset of the current cursor position in Buffer (the point).
 // (See rl_point http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX192)
-func Point() int32 {
-	return int32(C.rl_point)
+func Point() int { // int32
+	return int(C.rl_point)
 }
 
 // setInput changes the default input stream (stdin by default)
@@ -115,10 +116,10 @@ func Name() string {
 
 // SetName set to a unique name by each application using Readline. The value allows conditional parsing of the inputrc file.
 // (See rl_readline_name http://cnswww.cns.cwru.edu/php/chet/readline/readline.html#IDX218)
-func SetName(s string) {
-	cs := C.CString(s)
+func SetName(name string) {
+	cname := C.CString(name)
 	/*if Name() != "" {
 		C.free(unsafe.Pointer(C.rl_readline_name))
 	}*/
-	C.rl_readline_name = cs
+	C.rl_readline_name = cname
 }

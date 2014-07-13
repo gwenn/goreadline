@@ -44,7 +44,7 @@ func Example() {
 }
 
 func ExampleSetCompletionEntryFunction() {
-	readline.SetCompletionEntryFunction(func(text string, state int32) string {
+	readline.SetCompletionEntryFunction(func(text string, state int) string {
 		// See Buffer() and Point() if you need them to make suggestions.
 		if state == 0 {
 			return text + "s"
