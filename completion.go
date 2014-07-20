@@ -6,8 +6,7 @@ package readline
 
 /*
 #include <stdlib.h>
-//#include <readline/readline.h>
-#include <editline/readline.h>
+#include "goreadline.h"
 
 extern char *goCompletionEntryFunction(char *text, int state);
 

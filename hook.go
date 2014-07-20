@@ -7,8 +7,6 @@
 package readline
 
 /*
-#cgo LDFLAGS: -lreadline -lhistory
-
 #include <readline/readline.h>
 */
 import "C"

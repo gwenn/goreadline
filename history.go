@@ -6,8 +6,7 @@ package readline
 
 /*
 #include <stdlib.h>
-//#include <readline/history.h>
-#include <editline/readline.h>
+#include "goreadline.h"
 */
 import "C"
 
