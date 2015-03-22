@@ -3,6 +3,8 @@ goreadline
 
 Yet another Readline binding.
 
+[![Build Status](https://travis-ci.org/gwenn/goreadline.svg)](https://travis-ci.org/gwenn/goreadline)
+
 SetCompletionEntryFunction should be used to register an application-specific completion function.  
 The default/filename completion is called when there is no application-specific match.
 
