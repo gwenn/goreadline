@@ -1,3 +1,5 @@
 language: go
 go:
   - 1.4.2
+before_install:
+ - sudo apt-get install -qq libedit-dev
