@@ -59,5 +59,6 @@ func main() {
 		}
 
 		fmt.Println(line)
+		readline.AddHistory(line)
 	}
 }
