@@ -1,10 +1,9 @@
 language: go
 go:
-  - 1.4.2
+  - 1.6
 #before_install:
 # - sudo apt-get install -qq libedit-dev
 install:
-- go get github.com/gwenn/yacr
 - go get -tags readline github.com/gwenn/goreadline
 before_script:
  - go get github.com/bmizerany/assert
